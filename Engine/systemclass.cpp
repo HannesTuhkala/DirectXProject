@@ -20,19 +20,15 @@ SystemClass::~SystemClass()
 
 bool SystemClass::Initialize()
 {
-	int screenWidth, screenHeight;
-	bool result;
-
-
 	// Initialize the width and height of the screen to zero before sending the variables into the function.
-	screenWidth = 0;
-	screenHeight = 0;
+	int screenWidth = 0, screenHeight = 0;
+	bool result;	
 
 	// Initialize the windows api.
 	InitializeWindows(screenWidth, screenHeight);
 
 	// Create the input object.  This object will be used to handle reading the keyboard input from the user.
-	m_Input = new InputClass;
+	m_Input = new InputClass();
 	if (!m_Input)
 	{
 		return false;
@@ -42,7 +38,7 @@ bool SystemClass::Initialize()
 	m_Input->Initialize();
 
 	// Create the graphics object.  This object will handle rendering all the graphics for this application.
-	m_Graphics = new GraphicsClass;
+	m_Graphics = new GraphicsClass();
 	if (!m_Graphics)
 	{
 		return false;
@@ -84,14 +80,13 @@ void SystemClass::Shutdown()
 void SystemClass::Run()
 {
 	MSG msg;
-	bool done, result;
+	bool result, done = false;
 
 
 	// Initialize the message structure.
 	ZeroMemory(&msg, sizeof(MSG));
 
 	// Loop until there is a quit message from the window or the user.
-	done = false;
 	while (!done)
 	{
 		// Handle the windows messages.
